@@ -1,0 +1,85 @@
+---
+title: "The 'Detecting Algorithmic Bias' (DAB) Pipeline"
+authors: "Gabriel Odom, Aaron Marker, Ganesh Jainarain, Sal Giorgi, Clinton Castro, Larry Au, Andy Schwartz, and Laura Brandt"
+subtitle: "CPDD 2025, New Orleans"
+format:
+  revealjs:
+    center-title-slide: false
+    theme:
+      - sky
+      - custom.scss
+    margin: 0.05
+---
+
+
+## Link to Slides
+
+::: {.r-stack}
+QR Code Here
+:::
+
+
+## Outline
+
+:::: {.columns}
+
+::: {.column width="43%"}
+1. What's the (End)Point?
+2. Theoretical Foundations:
+    + What is a "Synthetic Clinical Trial"?
+    + Stress-Testing AI/ML Models
+:::
+
+::: {.column width="4%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="53%"}
+3. What can DAB do for You?
+    + DAB Pipeline Steps
+    + Real Data Example
+4. Interpreting Results for...
+    + Researchers
+    + Patients and Care Providers
+:::
+
+::::
+
+
+# What's the Point?
+
+# What's the Point?
+
+- An [endpoint](https://toolkit.ncats.nih.gov/glossary/endpoint/) is a "targeted outcome of a clinical trial that is statistically analyzed to help determine the efficacy and safety of the therapy being studied"
+- **Endpoint Science** is the study of those endpoints, especially from an empirical/rigorous perspective
+- The **DAB Pipeline** enables us to study how endpoints (*and the AI/ML models predicting them*) "react" to changes in the underlying data
+
+
+## {#slide-cluster-id data-menu-title="Endpoint Clustering"}
+
+:::: {.columns}
+
+::: {.column width="58%"}
+![](https://onlinelibrary.wiley.com/cms/asset/f1f18ddd-bd1b-4f56-b87e-c6d78a2b8a53/add16494-fig-0001-m.jpg)
+:::
+
+::: {.column width="4%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="38%"}
+### But why?
+As [Brandt, Odom, et al. (2024)](https://pubmed.ncbi.nlm.nih.gov/38616571/) showed:
+
+- Not all endpoints are created equal
+- Endpoints don't always measure what they claim
+:::
+
+::::
+
+
+## Garbage In---Garbage Out
+
+- Artificial Intelligence and Machine Learning (AI/ML) models offer the potential for profound translational insights in SUD treatment, *if they are used correctly*
+- AI/ML models are limited to the data you give them: these models will do their best to predict the endpoint you choose based on the demographic and clinical predictors you supply
+- Unless you choose your endpoint carefully, AI/ML will give you the **right answer** to the **wrong question**
