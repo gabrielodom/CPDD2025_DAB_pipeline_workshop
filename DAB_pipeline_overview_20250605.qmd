@@ -5,11 +5,17 @@ subtitle: "CPDD 2025, New Orleans"
 format:
   revealjs:
     center-title-slide: false
+    slide-number: true
     theme:
       - sky
       - custom.scss
     margin: 0.05
 ---
+
+
+## Disclosures
+
+Authors have no conflicts of interest to declare.
 
 
 ## Link to Slides
@@ -26,8 +32,8 @@ QR Code Here
 ::: {.column width="43%"}
 1. What's the (End)Point?
 2. Theoretical Foundations:
-    + What is a "Synthetic Clinical Trial"?
     + Stress-Testing AI/ML Models
+    + What is a "Synthetic Clinical Trial"?
 :::
 
 ::: {.column width="4%"}
@@ -83,3 +89,181 @@ As [Brandt, Odom, et al. (2024)](https://pubmed.ncbi.nlm.nih.gov/38616571/) show
 - Artificial Intelligence and Machine Learning (AI/ML) models offer the potential for profound translational insights in SUD treatment, *if they are used correctly*
 - AI/ML models are limited to the data you give them: these models will do their best to predict the endpoint you choose based on the demographic and clinical predictors you supply
 - Unless you choose your endpoint carefully, AI/ML will give you the **right answer** to the **wrong question**
+
+
+# Theoretical Foundations
+
+# Theoretical Foundations
+
+- Stress-Testing AI/ML Models
+- What is a "Synthetic Clinical Trial"?
+
+
+## Stress-Testing Models
+
+- [**Stress testing**](https://en.wikipedia.org/wiki/Stress_testing) in engineering involves taking some constructed tool or product and "pushing" the product to its limits (and beyond)
+- Products are stress tested to ensure they are safe and effective to use 
+- AI/ML models are often built in "clean" research environments, free of many bizarre components of human behavior. As such, they need stress testing before they can be applied to new data.
+
+
+## Example: Self-Driving Cars
+
+:::: {.columns}
+
+::: {.column width="48%"}
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Truck_carrying_road_signs_-_panoramio.jpg/1600px-Truck_carrying_road_signs_-_panoramio.jpg?20161113024607)
+Could you force a self-driving car to take "Exit 7 for Bloomingdale Rd"?
+:::
+
+::: {.column width="4%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="48%"}
+![](figs/tesla_salt_circle.png)
+
+Can you [trap a self-driving car ](https://www.the-sun.com/motors/6863373/salt-test-self-driving-cars/) with a salt circle? With cones?
+:::
+
+::::
+
+
+## Stress Testing Endpoints
+
+- Stress testing predictive models is good, but can still suffer from the "right answer to the wrong question" problem
+- The DAB pipeline is designed to stress test clinical trial endpoints which have been used to evaluate medication-based treatments for SUD
+- We want to use clinical trial endpoints that have good resilience and stability across various "stress" conditions
+
+
+## Synthetic Clinical Trials
+
+- Endpoints are applied to their respective clinical trials, but will they have similar performance in a new trial?
+- A **synthetic trial** is a new data set created in the computer from previously published clinical trial cohorts 
+- Because participants in synthetic cohorts are "recruited" from clinical trials or EMR databases, we get two benefits: 1) thousands of cohorts can be created instantly, and 2) these cohorts can have "bespoke" demographics and patient characteristics
+
+
+## Fine-Grain Cohort Control
+
+With Synthetic Cohorts, we can create random trial cohorts from real data that represent hard-to-recruit subpopulations. For example, cohorts could have:
+
+- 0% - 100% racial/ethnic minority participation
+- 0% - 100% female participation
+- 0% - 100% rural participation
+- only people who inject drugs
+- overrepresentation of a specific age group
+- and many more
+
+
+
+# What can DAB do for You?
+
+
+## Controlled Stress Testing with the DAB Pipeline
+
+- Each of the synthetic cohort "stresses" the endpoint (and AI/ML model predicting it) in various ways
+- We perturb cohort characteristics across various percentage values to change how the endpoint and its model will be tested
+- The DAB Pipeline  generates 1000s of these synthetic clinical trial cohorts (under potential "stressors"), evaluates the endpoint and model across these conditions, and returns evaluation data
+
+
+## Pipeline Experimental Inputs
+
+- A rich database of SUD patients, as a clean model data matrix (defaults to the [CTN-0094 Database](https://ctn-0094.github.io/public.ctn0094data/))
+- Clinical endpoint calculated for each patient (defaults include abstinence, relapse, and use reduction endpoints from the [CTNote Library](https://ctn-0094.github.io/CTNote/))
+- AI/ML model to predict endpoint (defaults to the LASSO Logistic SUD model from [Luo et al. (2024)](https://doi.org/10.1001/jamapsychiatry.2023.3596))
+- A binary subset "stressor" on the endpoint and model. As an example, we will use increasing minority representation in the synthetic cohorts
+
+
+## Non-default Pipeline Arguments
+
+```
+python run_pipelineV2.py --loop 1 11 --col is_minority --samp 500 --dir results
+```
+
+- `--loop`: A set of random number generator seeds for reproducibility; here, $[1, 11)$
+- `--col is_minority`: The name of the "stressor" column in the data set
+- `--samp 500`: The sample size of the minority class (should be $<$ 2/3rds of the total number available; the CTN-0094 Database has 1074 minority participants)
+- `--dir`: The path to an empty directory to save the results; here, `"results/"`
+
+
+## {#slide-flowchart-id data-menu-title="DAB Flowchart" background-image="figs/pipeline_graph_cropped.svg" background-size="contain"}
+
+
+<!-- https://docs.google.com/drawings/d/10VgqOtTgqm_gHsQ9d8RP2MQWqFJyKvMTE0WevFf_YVU/edit -->
+
+
+## Pipeline Steps (Pt 1)
+
+1.
+    a) *External Validation Data*: sample 58 non-Hispanic white and 42 minority participants
+    b) *Train-Test Universe*: sample `--samp 500` minority participants and use [propensity score matching](https://dlab.berkeley.edu/news/introduction-propensity-score-matching-matchit) to sample 2 sets of 500 matched non-Hispanic white participants
+2.
+    a) create 11 synthetic clinical cohorts with $n = 1000$, with minority representation ranging from 0% - 50%
+    b) create 50-50 train-test splits for each of the 11 synthetic clinical trial cohorts in 2a
+
+
+## Pipeline Steps (Pt 2)
+
+3. For the training data split within each of the 11 cohorts, fit the AI/ML model to predict the chosen endpoint
+4.
+    a) Predict the endpoint using the *internal test data* for the 11 cohorts. Note that the proportion of the minority class will be nearly identical for the training and testing data in each of the 11 cohorts
+    b) Predict the endpoint using the single *external validation data*. The proportion of the minority class in this external data will be fixed to the observed proportion in the real world
+
+
+## Pipeline Outputs 
+
+The DAB Pipeline returns results in subdirectories on your computer:
+
+- Model predictions and evaluations in external validation data (`heldout_predictions/` and `heldout_evaluations/`)
+- *For model checking only:* Model predictions and evaluations in testing data (`subset_predictions/` and `subset_evaluations/`)
+- Logging messages and error statements (`logs/`)
+
+
+## Performance Evaluation
+
+Within the `heldout_evaluations/` directory (validation results), there will be one `.csv` file per random seed value and endpoint with columns for ...
+
+- *Meta-data*: the global seed value, endpoint type, endpoint name, and AI/ML model script name
+- *Sample counts for selected "stressor" feature*: name of demographic comparison feature, sample sizes in prediction data, and sample sizes in training data
+- *Performance metrics*: depends on the endpoint type, but could include accuracy, F1, $R^2$, pseudo-$R^2$, etc.
+
+
+## Evaluation Data (Pt 1)
+
+![](figs/DAB_pipeline_results_meta_20250610.png)
+
+For these results, the numeric **seed** was 0, the **endpoint type** was binary (success or failure), the **endpoint** was an *abstinence* measure from [Krupitsky et al. (2011)](https://ctn-0094.github.io/CTNote/articles/library_abstinence_20220711.html#krupitsky-et-al--2011-a), and the **AI/ML model** is the default LASSO Logistic model for OUD from [Luo et al. (2024)](https://doi.org/10.1001/jamapsychiatry.2023.3596).
+
+
+## Evaluation Data (Pt 2)
+
+![](figs/DAB_pipeline_results_stressor_20250610.png)
+
+The endpoint and model **stressor** was non-Hispanic white vs minority, the **validation demographic proportion** was 58% (US demographic), and the **synthetic cohort demographic proportion** increases from 0% minority to 50% minority in 5% increments.
+
+
+## Evaluation Data (Pt 3)
+
+![](figs/DAB_pipeline_results_performance_20250610.png)
+
+The **performance metrics** include the Confusion Matrix, classification accuracy, and AUROC Score. These performance metrics are all appropriate to a **binary** endpoint.
+
+
+
+# Interpreting Results
+
+<!-- Source code for images from Research/2023_aim_ahead/reports/isMinority_DAB_run_20250610.qmd -->
+
+
+## Flat Line Theory
+
+![](figs/pipeline_endpoints_by_minority_20250610.png)
+
+
+## Practical Significance
+
+What should patients, patient advocates, and care providers care about?
+
+
+
+# Discussion
+
