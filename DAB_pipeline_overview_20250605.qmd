@@ -17,11 +17,13 @@ format:
 
 Authors have no conflicts of interest to declare.
 
+This research was, in part, funded by the National Institutes of Health (NIH) Agreement NO. 1OT2OD032581-01. The views and conclusions contained in this document are those of the authors and should not be interpreted as representing the official policies, either expressed or implied, of the NIH. 
+
 
 ## Link to Slides
 
 ::: {.r-stack}
-QR Code Here
+![](figs/presentation_QR.png)
 :::
 
 
@@ -254,16 +256,22 @@ The **performance metrics** include the Confusion Matrix, classification accurac
 <!-- Source code for images from Research/2023_aim_ahead/reports/isMinority_DAB_run_20250610.qmd -->
 
 
-## Flat Line Theory
+## We Want Flat Lines!
 
 ![](figs/pipeline_endpoints_by_minority_20250610.png)
 
 
 ## Practical Significance
 
-What should patients, patient advocates, and care providers care about?
+- How flat is "flat"? We don't have a "magic" $p$-value here
+- Which metrics matter more to clinicians?
+- Which metrics matter more to patients and their advocates?
+
+Statisticians are not the authority over the real impact of these results. These are questions that should be discussed in a group of people from diverse academic, clinical, experiential, and cultural backgrounds.
+
+
+## {#slide-lastslide-id data-menu-title="Discussion" background-image="figs/Laura_LastSlide_DABWorkshop.png" background-size="contain"}
 
 
 
-# Discussion
-
+# Questions?

@@ -1,0 +1,4 @@
+- source: DAB_pipeline_overview_20250605.qmd
+  quarto-pub:
+    - id: 016d16c1-c45f-40da-a8cc-79d544c4e8ac
+      url: 'https://gabriel.quarto.pub/cpdd2025_learn_to_dab'
