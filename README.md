@@ -1,49 +1,10 @@
-# Repository Name
+# DAB Pipeline Workshop Slides
 
-**PI**: add contact info if the repo is private.
+**PI**: Gabriel Odom, Laura Brandt, and the ENDPOINT Consortium
 
-**Code Authors**: 
+**Code Authors**: [Ganesh Jainarain](https://github.com/GaneshJainarain), [Aaron Marker](https://github.com/AaronMarker), [Sal Giorgi](https://github.com/sjgiorgi), and [Gabriel Odom](https://github.com/gabrielodom)
 
-**Description**: Follow the name with a *brief* description of what the project does.  Say the source of the data. If the data is public add reference here.
+**Description**: Stress test clinical trial endpoints and their AI/ML models. The DAB Pipeline is available at <https://github.com/CTN-0094/Pipeline>. User guides and a quick-start tutorial are available at <https://ctn-0094.github.io/Pipeline/>. To run basic code examples, please visit our Google Collab: <https://colab.research.google.com/drive/1Agj-EXE9WhLjMulA1mIVzW4YWNN7fiqX?usp=sharing>.
 
-**Notes**: The progress notes are here [dated_progress_notes.md](dated_progress_notes.md).
 
-## Run Me First
 
-Include the packages needed.  Consider using either `remotes` or `pak`
-
-```r
-install.packages("remotes")
-
-remotes::install_cran(
-  c("conflicted", "tidyverse", "tidymodels", "knitr", "tidyREDCap")
-)
-# remotes::install_github()
-```
-
-## Raw Data
-
-The names of each raw file with a brief descriptions 
-
-`file_name`:  what the is file
-
-## Directories
-
-`path`: what goes in the directory
-
-## Ordered Analysis Pipeline/ Workflow
-
-Run these file in order from raw processing to publication.
-
-1.
-2.
-3.
-
-## Other Files
-
-**Data**: Include enough information to trace the data to its origin.  This may be URLs or emails (with who sent it and who received it on what date).
-
-**Preprocessing/Anonymization**: 
-If the project began with confidential data, include the **paths** to the code that processed the sensitive data here.
-
-**Miscellaneous**: Things like .ccs, .csl, .bib, .js, .sass files.
