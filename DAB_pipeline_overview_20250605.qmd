@@ -1,6 +1,6 @@
 ---
 title: "The 'Detecting Algorithmic Bias' (DAB) Pipeline"
-authors: "Gabriel Odom, Aaron Marker, Ganesh Jainarain, Sal Giorgi, Clinton Castro, Larry Au, Andy Schwartz, and Laura Brandt"
+authors: "Gabriel J. Odom, Aaron Marker, Ganesh Jainarain, Sal Giorgi, Clinton Castro, Larry Au, H. Andrew Schwartz, and Laura Brandt"
 subtitle: "CPDD 2025, New Orleans"
 format:
   revealjs:
@@ -187,7 +187,7 @@ python run_pipelineV2.py --loop 1 11 --col is_minority --samp 500 --dir results
 - `--dir`: The path to an empty directory to save the results; here, `"results/"`
 
 
-## {#slide-flowchart-id data-menu-title="DAB Flowchart" background-image="figs/pipeline_graph_cropped.svg" background-size="contain"}
+## {#slide-flowchart-id data-menu-title="DAB Flowchart" background-image="figs/Pipeline Graph.svg" background-size="contain"}
 
 
 <!-- https://docs.google.com/drawings/d/10VgqOtTgqm_gHsQ9d8RP2MQWqFJyKvMTE0WevFf_YVU/edit -->
@@ -200,7 +200,7 @@ python run_pipelineV2.py --loop 1 11 --col is_minority --samp 500 --dir results
     b) *Train-Test Universe*: sample `--samp 500` minority participants and use [propensity score matching](https://dlab.berkeley.edu/news/introduction-propensity-score-matching-matchit) to sample 2 sets of 500 matched non-Hispanic white participants
 2.
     a) create 11 synthetic clinical cohorts with $n = 1000$, with minority representation ranging from 0% - 50%
-    b) create 50-50 train-test splits for each of the 11 synthetic clinical trial cohorts in 2a
+    b) create 75-25 train-test splits for each of the 11 synthetic clinical trial cohorts in 2a
 
 
 ## Pipeline Steps (Pt 2)
